@@ -1,0 +1,27 @@
+<section class="admin-container">
+    <h1 class="admin-title">Panel de Administración</h1>
+
+    <!-- Mostrar usuarios -->
+    <table *ngIf="users.length > 0">
+    <thead>
+        <tr>
+        <th>CI</th>
+        <th>Nombre completo</th>
+        <th>Email</th>
+        <th>Direccion</th>
+        <th>Telefono</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let user of users">
+        <td>{{ user.ci_usuario }}</td>
+        <td>{{ user.nombre }} {{ user.ap_paterno }} {{ user.ap_materno }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.direccion }}</td>
+        <td>{{ user.telefono }}</td>
+        </tr>
+    </tbody>
+    </table>
+
+    <p *ngIf="users.length === 0">No hay usuarios registrados.</p>
+</section>

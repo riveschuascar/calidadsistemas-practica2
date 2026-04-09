@@ -1,0 +1,92 @@
+.payment-container {
+  max-width: 450px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background: #2e2e2e;
+  border-radius: 12px;
+  border: 1px solid #007b5a;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.payment-container h2 {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #ffffff;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+div {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+}
+
+input {
+  padding: 0.8rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #4a4949;
+  color: #ffffff;
+  transition: border-color 0.3s ease;
+  border-color: #007b5a;
+}
+
+input::placeholder {
+  color: #bbbbbb;
+}
+
+input:focus {
+  outline: none;
+  border-color: #ffffff;
+  background-color: #737373;
+}
+
+.card-details {
+  display: flex;
+  gap: 1rem;
+}
+
+.card-details div {
+  flex: 1;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #ffffff;
+}
+
+button {
+  padding: 0.8rem;
+  background-color: #03543f;
+  color: white;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: 600;
+}
+
+button:hover {
+  background-color: #034131;
+}
+
+button:disabled {
+  background-color: #4a4949;
+  cursor: not-allowed;
+}

@@ -1,0 +1,67 @@
+/* Estilos generales */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: #0c0c0c; /* Fondo suave lila claro para toda la página */
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f3e7f7; /* Fondo claro lila */
+  color: #2e2e2e; /* Gris muy oscuro para mejor contraste y legibilidad */
+}
+
+/* Encabezado */
+header {
+  background-color: #1d1e1e; /* Lila oscuro para el encabezado */
+  padding: 1rem;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  color: #ffffff; /* Blanco para el logo, mejora el contraste */
+  text-decoration: none;
+  font-size: 1.5rem;
+}
+
+.nav-menu a {
+  color: #ffffff; /* Blanco para los enlaces */
+  text-decoration: none;
+  margin: 0 1rem;
+  font-size: 1rem;
+  transition: color 0.3s;
+}
+
+.nav-menu a:hover {
+  color: #d1a7e4; /* Lila suave para los enlaces al pasar el mouse */
+}
+
+/* Contenido principal */
+main {
+  padding: 2rem;
+  text-align: center;
+}
+
+.intro {
+  background-color: #7e4e92; /* Fondo lila pálido para el contenedor principal */
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(166, 139, 204, 0.2); /* Sombra suave lila */
+}
+
+h2 {
+  color: #b71dd6; /* Lila muy oscuro para los títulos */
+  margin-bottom: 1rem;
+  font-size: 1.5rem; /* Títulos un poco más grandes para mejor legibilidad */
+}
+
+/* Mejora de la visibilidad de los textos de los enlaces y contenedores */
+p, span, a {
+  color: #333; /* Gris muy oscuro para mayor contraste y visibilidad */
+}

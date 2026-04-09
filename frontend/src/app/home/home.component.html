@@ -1,0 +1,44 @@
+<section class="home-container">
+  <!-- Banner principal -->
+  <div class="hero">
+    <div class="hero-content">
+      <h1>Bienvenido a Espacios Bolivia</h1>
+      <p>Facilitando el acceso a espacios públicos para todos.</p>
+      <div class="hero-buttons">
+        <button class="cta" (click)="scrollTo('highlights')">Explorar</button>
+        <button class="cta secondary" (click)="scrollTo('gallery')">Galería</button>
+      </div>
+      <div class="boton-calendario">
+        <button class="btn btn-success" [routerLink]="['/calendario']">Calendario de Eventos</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sección de características -->
+  <section id="highlights" class="highlights">
+    <h2 class="section-title">¿Qué ofrecemos?</h2>
+    <div class="highlights-list">
+      <div *ngFor="let item of highlights" class="highlight-card">
+        <img [src]="item.icon" [alt]="item.title" />
+        <h3>{{ item.title }}</h3>
+        <p>{{ item.description }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Galería de imágenes -->
+  <section id="gallery" class="gallery">
+    <h2 class="section-title">Espacios Destacados</h2>
+    <div class="carousel-container">
+      <div class="carousel-wrapper" [style.transform]="'translateX(-' + currentIndex * (100 / visibleItems) + '%)'">
+        <div class="carousel-item" *ngFor="let image of carousel">
+          <img [src]="image.url_imagen" [alt]="image.nombre || 'Espacio público'">
+        </div>
+      </div>
+      <button class="prev" (click)="prevSlide()">&#10094;</button>
+      <button class="next" (click)="nextSlide()">&#10095;</button>
+    </div>
+  </section>
+</section>
+
+

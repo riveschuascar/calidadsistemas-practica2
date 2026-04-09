@@ -1,0 +1,9 @@
+# Paquetes node
+*node_modules/
+
+# Editor
+*/.vscode/
+
+# SonarScanner
+.scannerwork/
+sonar-project.properties

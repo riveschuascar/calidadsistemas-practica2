@@ -1,0 +1,56 @@
+<section class="registro-datos-container">
+    <h2>Completar Registro</h2>
+    <form (ngSubmit)="onRegistroDatosSubmit()" #registroDatosForm="ngForm">
+    <div>
+        <label for="nombre">Nombre:</label>
+        <input
+        type="text"
+        id="nombre"
+        name="nombre"
+        [(ngModel)]="registroDatosData.nombre"
+        required
+        />
+    </div>
+    <div>
+        <label for="ap_paterno">Apellido Paterno:</label>
+        <input
+        type="text"
+        id="ap_paterno"
+        name="ap_paterno"
+        [(ngModel)]="registroDatosData.ap_paterno"
+        required
+        />
+    </div>
+    <div>
+        <label for="ap_materno">Apellido Materno:</label>
+        <input
+        type="text"
+        id="ap_materno"
+        name="ap_materno"
+        [(ngModel)]="registroDatosData.ap_materno"
+        required
+        />
+    </div>
+    <div>
+        <label for="direccion">Dirección:</label>
+        <input
+        type="text"
+        id="direccion"
+        name="direccion"
+        [(ngModel)]="registroDatosData.direccion"
+        required
+        />
+    </div>
+    <div>
+        <label for="telefono">Teléfono:</label>
+        <input
+        type="text"
+        id="telefono"
+        name="telefono"
+        [(ngModel)]="registroDatosData.telefono"
+        required
+        />
+    </div>
+    <button type="submit" [disabled]="!registroDatosForm.valid">Guardar</button>
+    </form>
+</section>

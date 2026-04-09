@@ -1,0 +1,100 @@
+.login-container {
+    max-width: 450px;
+    margin: 3rem auto;
+    padding: 2rem;
+    background: #2e2e2e;
+    border-radius: 12px;
+    border: 1px solid #0c0404;
+    border-color: #007b5a;
+}
+
+h2 {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: #ffffff;
+    background-color: #2e2e2e;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    background-color: #2e2e2e;
+}
+
+div {
+    display: flex;
+    flex-direction: column;
+    background-color: #2e2e2e;
+}
+
+label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+    background-color: #2e2e2e;
+}
+
+input {
+    padding: 0.8rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #4a4949;
+    transition: border-color 3s ease;
+    border-color: #007b5a;
+}
+
+input:focus {
+    outline: none;
+    border-color: #ffffff;
+    background-color: #737373;
+}
+
+button {
+    padding: 0.8rem;
+    background-color: #03543f;
+    color: white;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color #007b5a;
+    font-weight: 600;
+}
+
+button:hover {
+    background-color: #034131;
+}
+
+button:disabled {
+    background-color: #03543f;
+    cursor: not-allowed;
+}
+
+.register-link {
+    text-align: center;
+    margin-top: 1rem;
+    background-color: #2e2e2e;
+  
+    p {
+      color: #ffffff;
+      font-size: 0.9rem;
+    }
+  
+    a {
+      color: #007b5a;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+      cursor: pointer; /* Esto hará que aparezca la manito */
+  
+      &:hover {
+        color: #03543f;
+      }
+    }
+  }
+  
+  

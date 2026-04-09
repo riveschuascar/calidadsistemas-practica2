@@ -1,0 +1,56 @@
+.registro-datos-container {
+    max-width: 600px;
+    margin: 3rem auto;
+    padding: 2rem;
+    background: #2e2e2e;
+    border-radius: 12px;
+    border: 1px solid #007b5a;
+}
+
+h2 {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    color: #ffffff;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+input {
+    padding: 0.8rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #4a4949;
+}
+
+button {
+    padding: 0.8rem;
+    background-color: #03543f;
+    color: white;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: 600;
+}
+
+button:hover {
+    background-color: #034131;
+}
+
+button:disabled {
+    background-color: #03543f;
+    cursor: not-allowed;
+}

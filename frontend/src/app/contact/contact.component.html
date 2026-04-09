@@ -1,0 +1,23 @@
+<section class="contact-container">
+    <h1 class="title">Contáctanos</h1>
+    <p class="description">
+      Si tienes preguntas o necesitas más información, no dudes en contactarnos.
+    </p>
+  
+    <form (ngSubmit)="onSubmit()" #contactForm="ngForm" class="contact-form">
+      <div>
+        <label for="name">Nombre:</label>
+        <input type="text" id="name" name="name" [(ngModel)]="contactData.name" required />
+      </div>
+      <div>
+        <label for="email">Correo electrónico:</label>
+        <input type="email" id="email" name="email" [(ngModel)]="contactData.email" required />
+      </div>
+      <div>
+        <label for="message">Mensaje:</label>
+        <textarea id="message" name="message" [(ngModel)]="contactData.message" required></textarea>
+      </div>
+      <button type="submit" [disabled]="!contactForm.valid">Enviar</button>
+    </form>
+  </section>
+  

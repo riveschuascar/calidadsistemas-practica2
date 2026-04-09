@@ -1,0 +1,60 @@
+<h1>Espacios Públicos: {{ tipo | titlecase }}</h1>
+
+<div *ngIf="espacios.length > 0">
+  <ul>
+    <li *ngFor="let espacio of espacios">
+      {{ espacio.nombre }}
+      <button (click)="seleccionarEspacio(espacio)">Seleccionar</button>
+    </li>
+  </ul>
+</div>
+
+<ng-template #noEspacios>
+  <p>No hay espacios públicos disponibles para "{{ tipo }}".</p>
+</ng-template>
+
+<div class="reservas-container">
+  <!-- TITULO -->
+  <div class="titulo-espacios">
+    <div class="linea"></div>
+    <h2>Espacios Publicos</h2>
+    <div class="linea"></div>
+  </div>
+
+
+  <!-- IMAGENES -->
+
+  <div class="lugares-verdes">
+    <img
+      src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Plaza_Col%C3%B3n_en_Cochabamba.jpg/2560px-Plaza_Col%C3%B3n_en_Cochabamba.jpg" alt="xdxdxdxddd">
+  </div>
+
+  <div class="lugares-deportivos">
+    <img
+      src="https://www.lostiempos.com/sites/default/files/styles/noticia_detalle/public/media_imagen/2018/3/3/geral_dep_1_lopezzzzzzz.jpg?itok=Qp6Ba46u"
+      alt="Estadio Felix Capriles">
+  </div>
+
+  <div class="lugares-culturales">
+    <img
+      src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/06/e0/73/04/el-cristo-de-la-concordia.jpg?w=500&h=500&s=1" alt="cristo de la concordia">
+  </div>
+
+  <!-- BOTONES -->
+  <div class="container-buttons">
+    <button class="espacio-btn" [routerLink]="['/reservas/plazas']" [queryParams]="{ tipo: 'plaza' }">
+      <img src="https://img.icons8.com/ios/50/ffffff/park.png" alt="Plaza Icon" />
+      Plazas
+    </button>
+
+    <button class="espacio-btn" [routerLink]="['/reservas/areas-deportivas']" [queryParams]="{ tipo: 'deportivo' }">
+      <img src="https://img.icons8.com/ios/50/ffffff/soccer-ball.png" alt="Áreas Deportivas Icon" />
+      Áreas Deportivas
+    </button>
+
+    <button class="espacio-btn" [routerLink]="['/reservas/cultural']" [queryParams]="{ tipo: 'cultural' }">
+      <img src="https://img.icons8.com/ios/50/ffffff/classroom.png" alt="Cultural Icon" />
+      Cultural
+    </button>
+  </div>
+</div>
