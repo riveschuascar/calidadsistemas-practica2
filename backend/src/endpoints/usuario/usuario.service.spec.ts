@@ -1,5 +1,6 @@
 import { UsuarioService } from "./usuario.service"
 import { UserRepositoryFake } from "../../../test/fakes/user.repository.fake";
+import { NotFoundException } from "@nestjs/common";
 
 describe('UsuarioService', () => {
   let service: UsuarioService;
@@ -24,4 +25,16 @@ describe('UsuarioService', () => {
     const result = await service.findOne(2);
     expect(result).toEqual({ ci: 2, nombre: "Usuario 2", email: "usuario2@example.com", password: "password2" });
   });
+
+  it('Should return a user found by email', async () => {
+    const result = await service.findByEmail("usuario2@example.com");
+    expect(result).toEqual({ ci: 2, nombre: "Usuario 2", email: "usuario2@example.com", password: "password2" });
+  });
+
+  it('Should raise an exception if user is not found by email', async () => {
+    await expect(
+      service.findByEmail("nonexistent@example.com")
+    ).rejects.toThrow(NotFoundException);
+  });
+  
 });
