@@ -46,4 +46,16 @@ describe('UsuarioService', () => {
     const result = await service.create({ ci: 4, nombre: "Usuario 4", contrasena: "plaintextpassword" });
     expect(result.contrasena).toContain("$2b$");
   });
+
+  it('Should update an existing user', async () => {
+    await service.update(2, { nombre: "Usuario 2 Updated" });
+    const updatedUser = await service.findOne(2);
+    expect(updatedUser).toEqual({ ci: 2, nombre: "Usuario 2 Updated", email: "usuario2@example.com", password: "password2" });
+  });
+
+  it('Should update and hash the password of an existing user', async () => {
+    await service.update(2, { contrasena: "newplaintextpassword" });
+    const updatedUser = await service.findOne(2);
+    expect(updatedUser.contrasena).toContain("$2b$");
+  });
 });
