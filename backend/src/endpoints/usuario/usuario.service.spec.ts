@@ -36,5 +36,14 @@ describe('UsuarioService', () => {
       service.findByEmail("nonexistent@example.com")
     ).rejects.toThrow(NotFoundException);
   });
-  
+
+  it('Should create a new user', async () => {
+    const result = await service.create({ ci: 4, nombre: "Usuario 4" });
+    expect(result).toEqual({ ci: 4, nombre: "Usuario 4" });
+  });
+
+  it('Should create and hash the password of a new user', async () => {
+    const result = await service.create({ ci: 4, nombre: "Usuario 4", contrasena: "plaintextpassword" });
+    expect(result.contrasena).toContain("$2b$");
+  });
 });
