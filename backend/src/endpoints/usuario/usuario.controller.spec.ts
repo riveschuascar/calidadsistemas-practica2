@@ -101,4 +101,24 @@ describe('UsuarioController', () => {
       expect(UsuarioServiceMock.update).toHaveBeenCalledWith(1, { nombre: 'new' });
     });
   });
+
+  describe('updatePartial', () => {
+    it('should update partially', async () => {
+      const result = { id: 1, nombre: 'updated' };
+      UsuarioServiceMock.updatePartial.mockResolvedValue(result);
+
+      expect(await controller.updatePartial(1, { nombre: 'updated' })).toBe(result);
+      expect(UsuarioServiceMock.updatePartial).toHaveBeenCalledWith(1, { nombre: 'updated' });
+    });
+
+    it('should throw BadRequestException for invalid id', async () => {
+      await expect(controller.updatePartial(NaN, {})).rejects.toThrow(BadRequestException);
+    });
+
+    it('should throw InternalServerErrorException on error', async () => {
+      UsuarioServiceMock.updatePartial.mockRejectedValue(new Error('error'));
+
+      await expect(controller.updatePartial(1, {})).rejects.toThrow(InternalServerErrorException);
+    });
+  });
 });
