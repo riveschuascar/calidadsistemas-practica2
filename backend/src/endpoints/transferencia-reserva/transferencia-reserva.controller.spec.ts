@@ -64,4 +64,16 @@ describe('TransferenciaReservaController', () => {
       expect(result).toEqual(mockTransferenciaReserva);
     });
   });
+  
+  describe('create', () => {
+    it('should create and return a TransferenciaReserva', async () => {
+      const transferenciaData = mockTransferenciaReserva;
+      mockService.create.mockResolvedValue(mockTransferenciaReserva);
+
+      const result = await controller.create(transferenciaData);
+
+      expect(mockService.create).toHaveBeenCalledWith(transferenciaData);
+      expect(result).toEqual(mockTransferenciaReserva);
+    });
+  });
 });
