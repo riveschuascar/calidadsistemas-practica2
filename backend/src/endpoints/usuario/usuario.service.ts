@@ -58,7 +58,7 @@ export class UsuarioService {
     }
 
     // Validar `rol` si se proporciona
-    if (partialData.rol && typeof partialData.rol !== 'number') {
+    if (partialData.rol && typeof partialData.rol._id !== 'number') {
       throw new BadRequestException('El campo rol debe ser un número válido');
     }
 

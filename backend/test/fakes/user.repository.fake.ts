@@ -2,7 +2,7 @@ class User {
   ci: number;
   nombre: string;
   email: string;
-  password: string;
+  contrasena: string;
   rol?: any;
 }
 
