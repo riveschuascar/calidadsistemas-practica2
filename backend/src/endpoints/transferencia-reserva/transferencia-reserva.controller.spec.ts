@@ -89,4 +89,15 @@ describe('TransferenciaReservaController', () => {
       expect(result).toEqual(mockTransferenciaReserva);
     });
   });
+  
+  describe('remove', () => {
+    it('should delete the TransferenciaReserva', async () => {
+      const id = 1;
+      mockService.delete.mockResolvedValue(undefined);
+
+      await controller.remove(id);
+
+      expect(mockService.delete).toHaveBeenCalledWith(id);
+    });
+  });
 });
