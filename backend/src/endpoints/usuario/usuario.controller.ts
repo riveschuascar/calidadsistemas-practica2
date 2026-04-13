@@ -1,9 +1,9 @@
 import { Controller, Get, Post, Put, Patch, Delete, Body, Param, BadRequestException, InternalServerErrorException, UseGuards } from '@nestjs/common';
 import { UsuarioService } from './usuario.service';
 import { Usuario } from './usuario.entity';
-import { AuthGuard } from 'src/modules/auth/guard/auth.guard';  // Importa el AuthGuard
-import { RolesGuard } from 'src/modules/auth/roles/roles.guard';   // Importa el RolesGuard
-import { Roles } from 'src/modules/auth/roles/roles.decorator';   // Importa el decorador personalizado de roles
+import { AuthGuard } from '../../modules/auth/guard/auth.guard';  // Importa el AuthGuard
+import { RolesGuard } from '../../modules/auth/roles/roles.guard';   // Importa el RolesGuard
+import { Roles } from '../../modules/auth/roles/roles.decorator';   // Importa el decorador personalizado de roles
 
 
 @Controller('usuarios')
@@ -55,11 +55,11 @@ export class UsuarioController {
     @Param('id') id: number,
     @Body() partialData: Partial<Usuario>,
   ): Promise<Usuario> {
-    try {
-      if (Number.isNaN(id)) {
-        throw new BadRequestException('El ID proporcionado no es válido');
-      }
+    if (Number.isNaN(id)) {
+      throw new BadRequestException('El ID proporcionado no es válido');
+    }
 
+    try {
       const updatedUser = await this.usuarioService.updatePartial(id, partialData);
       return updatedUser;
     } catch (error) {
