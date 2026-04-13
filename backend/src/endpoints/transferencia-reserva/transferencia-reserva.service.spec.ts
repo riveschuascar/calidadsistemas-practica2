@@ -53,4 +53,28 @@ describe('TransferenciaReservaService', () => {
       expect(result).toEqual(expectedResult);
     });
   });
+  
+  describe('findOne', () => {
+    it('should return a single TransferenciaReserva', async () => {
+      const id = 1;
+      mockRepository.findOne.mockResolvedValue(mockTransferenciaReserva);
+
+      const result = await service.findOne(id);
+
+      expect(mockRepository.findOne).toHaveBeenCalledWith({ where: { _id: id }, relations: ['reseva', 'usuario_origen', 'usuario_destino'] });
+      expect(result).toEqual(mockTransferenciaReserva);
+    });
+  });
+  
+  describe('create', () => {
+    it('should create and return a TransferenciaReserva', async () => {
+      const transferenciaData = { /* datos parciales */ };
+      mockRepository.save.mockResolvedValue(mockTransferenciaReserva);
+
+      const result = await service.create(transferenciaData);
+
+      expect(mockRepository.save).toHaveBeenCalledWith(transferenciaData);
+      expect(result).toEqual(mockTransferenciaReserva);
+    });
+  });
 });
