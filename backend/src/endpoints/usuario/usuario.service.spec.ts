@@ -118,4 +118,76 @@ describe('UsuarioService', () => {
     const deletedUser = await service.findOne(2);
     expect(deletedUser).toBeNull();
   });
+
+  // Test for migratePasswords()
+  it('no debería hacer nada si no hay usuarios', async () => {
+    repo = new UserRepositoryFake([]);
+    service = new UsuarioService(repo as any);
+
+    const logSpy = jest.spyOn(console, 'log').mockImplementation();
+
+    await service.migratePasswords();
+
+    expect(repo.find).toHaveBeenCalled();
+    expect(repo.update).not.toHaveBeenCalled();
+
+    expect(logSpy).toHaveBeenCalledWith('Usuarios encontrados: 0');
+    expect(logSpy).toHaveBeenCalledWith('Migración de contraseñas completada.');
+
+    logSpy.mockRestore();
+  });
+
+  it('debería hashear la contraseña si no está hasheada', async () => {
+    const data = [
+      { ci: 1, nombre: "User", email: "test@test.com", contrasena: "plain" },
+    ];
+
+    repo = new UserRepositoryFake(data);
+    service = new UsuarioService(repo as any);
+
+    const logSpy = jest.spyOn(console, 'log').mockImplementation();
+
+    await service.migratePasswords();
+
+    expect(repo.update).toHaveBeenCalledTimes(1);
+
+    const usuarios = await repo.find();
+
+    expect(usuarios[0].contrasena.startsWith('$2b$')).toBe(true);
+
+    expect(logSpy).toHaveBeenCalledWith(
+      'Migrando contraseña para usuario con ID 1...'
+    );
+
+    expect(logSpy).toHaveBeenCalledWith(
+      'Contraseña migrada correctamente para usuario con ID 1'
+    );
+
+    expect(logSpy).toHaveBeenCalledWith('Migración de contraseñas completada.');
+
+    logSpy.mockRestore();
+  });
+
+  it('no debería actualizar si la contraseña ya está hasheada', async () => {
+    const data = [
+      { ci: 1, nombre: "User", email: "test@test.com", contrasena: "$2b$hashed" },
+    ];
+
+    repo = new UserRepositoryFake(data);
+    service = new UsuarioService(repo as any);
+
+    const logSpy = jest.spyOn(console, 'log').mockImplementation();
+
+    await service.migratePasswords();
+
+    expect(repo.update).not.toHaveBeenCalled();
+
+    expect(logSpy).toHaveBeenCalledWith(
+      'El usuario con ID 1 ya tiene una contraseña hasheada.'
+    );
+
+    expect(logSpy).toHaveBeenCalledWith('Migración de contraseñas completada.');
+
+    logSpy.mockRestore();
+  });
 });
