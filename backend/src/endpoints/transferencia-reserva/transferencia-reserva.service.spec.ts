@@ -77,4 +77,19 @@ describe('TransferenciaReservaService', () => {
       expect(result).toEqual(mockTransferenciaReserva);
     });
   });
+  
+  describe('update', () => {
+    it('should update and return the TransferenciaReserva', async () => {
+      const id = 1;
+      const transferenciaData = { /* datos parciales */ };
+      mockRepository.update.mockResolvedValue(undefined);
+      mockRepository.findOne.mockResolvedValue(mockTransferenciaReserva);
+
+      const result = await service.update(id, transferenciaData);
+
+      expect(mockRepository.update).toHaveBeenCalledWith(id, transferenciaData);
+      expect(mockRepository.findOne).toHaveBeenCalledWith({ where: { _id: id }, relations: ['reseva', 'usuario_origen', 'usuario_destino'] });
+      expect(result).toEqual(mockTransferenciaReserva);
+    });
+  });
 });
