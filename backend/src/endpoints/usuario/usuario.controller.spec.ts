@@ -92,4 +92,13 @@ describe('UsuarioController', () => {
       await expect(controller.create({})).rejects.toThrow(InternalServerErrorException);
     });
   });
+
+  describe('update', () => {
+    it('should update a usuario', async () => {
+      UsuarioServiceMock.update.mockResolvedValue(undefined);
+
+      await controller.update(1, { nombre: 'new' });
+      expect(UsuarioServiceMock.update).toHaveBeenCalledWith(1, { nombre: 'new' });
+    });
+  });
 });
