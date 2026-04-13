@@ -1,3 +1,4 @@
+/// <reference types="jest" />
 import { Test, TestingModule } from '@nestjs/testing';
 import { PermisoEventoController } from './permiso-evento.controller';
 import { PermisoEventoService } from './permiso-evento.service';
