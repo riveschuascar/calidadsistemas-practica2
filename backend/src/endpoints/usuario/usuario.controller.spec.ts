@@ -130,4 +130,13 @@ describe('UsuarioController', () => {
       expect(UsuarioServiceMock.delete).toHaveBeenCalledWith(1);
     });
   });
+
+  describe('migratePasswords', () => {
+    it('should call migratePasswords', async () => {
+      UsuarioServiceMock.migratePasswords.mockResolvedValue(undefined);
+
+      expect(await controller.migratePasswords()).toBe('Migración de contraseñas completada.');
+      expect(UsuarioServiceMock.migratePasswords).toHaveBeenCalled();
+    });
+  });
 });
