@@ -111,4 +111,11 @@ describe('UsuarioService', () => {
       service.updatePartial(-1, { nombre: "Nonexistent User" })
     ).rejects.toThrow(NotFoundException);
   });
+
+  // Test for delete()
+  it('Should delete an existing user', async () => {
+    await service.delete(2);
+    const deletedUser = await service.findOne(2);
+    expect(deletedUser).toBeNull();
+  });
 });
