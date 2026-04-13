@@ -52,4 +52,16 @@ describe('TransferenciaReservaController', () => {
       expect(result).toEqual(expectedResult);
     });
   });
+  
+  describe('findOne', () => {
+    it('should return a single TransferenciaReserva', async () => {
+      const id = 1;
+      mockService.findOne.mockResolvedValue(mockTransferenciaReserva);
+
+      const result = await controller.findOne(id);
+
+      expect(mockService.findOne).toHaveBeenCalledWith(id);
+      expect(result).toEqual(mockTransferenciaReserva);
+    });
+  });
 });
