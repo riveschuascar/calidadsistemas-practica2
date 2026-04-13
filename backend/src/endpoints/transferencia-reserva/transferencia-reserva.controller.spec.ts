@@ -76,4 +76,17 @@ describe('TransferenciaReservaController', () => {
       expect(result).toEqual(mockTransferenciaReserva);
     });
   });
+  
+  describe('update', () => {
+    it('should update and return the TransferenciaReserva', async () => {
+      const id = 1;
+      const transferenciaData = mockTransferenciaReserva;
+      mockService.update.mockResolvedValue(mockTransferenciaReserva);
+
+      const result = await controller.update(id, transferenciaData);
+
+      expect(mockService.update).toHaveBeenCalledWith(id, transferenciaData);
+      expect(result).toEqual(mockTransferenciaReserva);
+    });
+  });
 });
