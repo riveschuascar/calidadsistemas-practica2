@@ -52,4 +52,14 @@ describe('UsuarioController', () => {
       expect(UsuarioServiceMock.findAll).toHaveBeenCalled();
     });
   });
+
+  describe('findOne', () => {
+    it('should return a usuario', async () => {
+      const result = { id: 1, nombre: 'test' };
+      UsuarioServiceMock.findOne.mockResolvedValue(result);
+
+      expect(await controller.findOne(1)).toBe(result);
+      expect(UsuarioServiceMock.findOne).toHaveBeenCalledWith(1);
+    });
+  });
 });
