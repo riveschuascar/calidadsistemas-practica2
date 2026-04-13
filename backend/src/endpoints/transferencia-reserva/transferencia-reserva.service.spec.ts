@@ -1,0 +1,106 @@
+import { Test, TestingModule } from '@nestjs/testing';
+import { getRepositoryToken } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { TransferenciaReservaService } from './transferencia-reserva.service';
+import { TransferenciaReserva } from './transferencia-reserva.entity';
+
+describe('TransferenciaReservaService', () => {
+  let service: TransferenciaReservaService;
+  let repository: Repository<TransferenciaReserva>;
+
+  const mockTransferenciaReserva: TransferenciaReserva = {
+    _id: 1,
+    reseva: null,
+    usuario_origen: null,
+    usuario_destino: null,
+  } as TransferenciaReserva;
+
+  const mockRepository = {
+    find: jest.fn(),
+    findOne: jest.fn(),
+    save: jest.fn(),
+    update: jest.fn(),
+    delete: jest.fn(),
+  };
+
+  beforeEach(async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      providers: [
+        TransferenciaReservaService,
+        {
+          provide: getRepositoryToken(TransferenciaReserva),
+          useValue: mockRepository,
+        },
+      ],
+    }).compile();
+
+    service = module.get<TransferenciaReservaService>(TransferenciaReservaService);
+    repository = module.get<Repository<TransferenciaReserva>>(getRepositoryToken(TransferenciaReserva));
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  describe('findAll', () => {
+    it('should return an array of TransferenciaReserva', async () => {
+      const expectedResult = [mockTransferenciaReserva];
+      mockRepository.find.mockResolvedValue(expectedResult);
+
+      const result = await service.findAll();
+
+      expect(mockRepository.find).toHaveBeenCalledWith({ relations: ['reseva', 'usuario_origen', 'usuario_destino'] });
+      expect(result).toEqual(expectedResult);
+    });
+  });
+  
+  describe('findOne', () => {
+    it('should return a single TransferenciaReserva', async () => {
+      const id = 1;
+      mockRepository.findOne.mockResolvedValue(mockTransferenciaReserva);
+
+      const result = await service.findOne(id);
+
+      expect(mockRepository.findOne).toHaveBeenCalledWith({ where: { _id: id }, relations: ['reseva', 'usuario_origen', 'usuario_destino'] });
+      expect(result).toEqual(mockTransferenciaReserva);
+    });
+  });
+  
+  describe('create', () => {
+    it('should create and return a TransferenciaReserva', async () => {
+      const transferenciaData = { /* datos parciales */ };
+      mockRepository.save.mockResolvedValue(mockTransferenciaReserva);
+
+      const result = await service.create(transferenciaData);
+
+      expect(mockRepository.save).toHaveBeenCalledWith(transferenciaData);
+      expect(result).toEqual(mockTransferenciaReserva);
+    });
+  });
+  
+  describe('update', () => {
+    it('should update and return the TransferenciaReserva', async () => {
+      const id = 1;
+      const transferenciaData = { /* datos parciales */ };
+      mockRepository.update.mockResolvedValue(undefined);
+      mockRepository.findOne.mockResolvedValue(mockTransferenciaReserva);
+
+      const result = await service.update(id, transferenciaData);
+
+      expect(mockRepository.update).toHaveBeenCalledWith(id, transferenciaData);
+      expect(mockRepository.findOne).toHaveBeenCalledWith({ where: { _id: id }, relations: ['reseva', 'usuario_origen', 'usuario_destino'] });
+      expect(result).toEqual(mockTransferenciaReserva);
+    });
+  });
+
+  describe('delete', () => {
+    it('should delete the TransferenciaReserva', async () => {
+      const id = 1;
+      mockRepository.delete.mockResolvedValue(undefined);
+
+      await service.delete(id);
+
+      expect(mockRepository.delete).toHaveBeenCalledWith(id);
+    });
+  });
+});
