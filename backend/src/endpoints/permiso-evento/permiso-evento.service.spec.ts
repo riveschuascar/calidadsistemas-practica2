@@ -94,14 +94,13 @@ describe('PermisoEventoService', () => {
 
       expect(repository.create).toHaveBeenCalledTimes(1);
       expect(repository.create).toHaveBeenCalledWith(data);
-
       expect(repository.save).toHaveBeenCalledTimes(1);
       expect(repository.save).toHaveBeenCalledWith(entidadCreada);
     });
   });
 
   describe('update', () => {
-    it('debería llamar a repository.update con evento, permiso y data', async () => {
+    it('debería llamar a repository.update con evento, permiso y data y resolver sin retorno', async () => {
       const evento = 1;
       const permiso = 2;
       const data: Partial<PermisoEvento> = {
@@ -118,7 +117,7 @@ describe('PermisoEventoService', () => {
   });
 
   describe('delete', () => {
-    it('debería llamar a repository.delete con evento y permiso', async () => {
+    it('debería llamar a repository.delete con evento y permiso y resolver sin retorno', async () => {
       const evento = 1;
       const permiso = 2;
 
