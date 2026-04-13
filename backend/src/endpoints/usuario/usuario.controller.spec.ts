@@ -62,4 +62,34 @@ describe('UsuarioController', () => {
       expect(UsuarioServiceMock.findOne).toHaveBeenCalledWith(1);
     });
   });
+
+  describe('create', () => {
+    it('should create a usuario with defaults', async () => {
+      const input = { email: 'test@test.com' };
+      const result = { id: 1, nombre: 'Usuario temporal', ap_paterno: 'Apellido temporal', ap_materno: 'Apellido temporal', direccion: 'Sin dirección', telefono: 'Sin teléfono', ...input };
+      UsuarioServiceMock.create.mockResolvedValue(result);
+
+      expect(await controller.create(input)).toBe(result);
+      expect(UsuarioServiceMock.create).toHaveBeenCalledWith({
+        ...input,
+        nombre: 'Usuario temporal',
+        ap_paterno: 'Apellido temporal',
+        ap_materno: 'Apellido temporal',
+        direccion: 'Sin dirección',
+        telefono: 'Sin teléfono',
+      });
+    });
+
+    it('should throw BadRequestException on duplicate entry', async () => {
+      UsuarioServiceMock.create.mockRejectedValue({ code: 'ER_DUP_ENTRY' });
+
+      await expect(controller.create({})).rejects.toThrow(BadRequestException);
+    });
+
+    it('should throw InternalServerErrorException on other errors', async () => {
+      UsuarioServiceMock.create.mockRejectedValue(new Error('other'));
+
+      await expect(controller.create({})).rejects.toThrow(InternalServerErrorException);
+    });
+  });
 });
