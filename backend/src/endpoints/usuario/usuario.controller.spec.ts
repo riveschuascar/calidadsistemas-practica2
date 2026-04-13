@@ -121,4 +121,13 @@ describe('UsuarioController', () => {
       await expect(controller.updatePartial(1, {})).rejects.toThrow(InternalServerErrorException);
     });
   });
+
+  describe('delete', () => {
+    it('should delete a usuario', async () => {
+      UsuarioServiceMock.delete.mockResolvedValue(undefined);
+
+      await controller.delete(1);
+      expect(UsuarioServiceMock.delete).toHaveBeenCalledWith(1);
+    });
+  });
 });
