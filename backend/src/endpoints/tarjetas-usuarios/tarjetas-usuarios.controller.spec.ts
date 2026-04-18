@@ -67,4 +67,24 @@ describe('TarjetasUsuariosController', () => {
       expect(mockService.getByNumber).toHaveBeenCalledWith('1234567890123456');
     });
   });
+
+  
+  describe('create', () => {
+    it('should create a tarjeta without error', async () => {
+      const tarjetaData: Partial<TarjetasUsuarios> = {
+        usuario: 1,
+        numero_tarjeta: '1234567890123456',
+        cvc: '123',
+        saldo: 100,
+        caducidad: '2030-12-31',
+      };
+      const expected = { ...mockTarjetaUsuario };
+      mockService.create.mockResolvedValue(expected);
+
+      const result = await controller.create(tarjetaData);
+
+      expect(result).toBe(expected);
+      expect(mockService.create).toHaveBeenCalledWith(tarjetaData);
+    });
+  });
 });
