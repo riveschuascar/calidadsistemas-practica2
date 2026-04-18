@@ -86,5 +86,20 @@ describe('TarjetasUsuariosController', () => {
       expect(result).toBe(expected);
       expect(mockService.create).toHaveBeenCalledWith(tarjetaData);
     });
+
+    it('should throw error when create fails', async () => {
+      const tarjetaData: Partial<TarjetasUsuarios> = {
+        usuario: 1,
+        numero_tarjeta: '1234567890123456',
+        cvc: '123',
+        saldo: 100,
+        caducidad: '2030-12-31',
+      };
+      const error = new Error('Create failed');
+      mockService.create.mockRejectedValue(error);
+
+      await expect(controller.create(tarjetaData)).rejects.toThrow(error);
+      expect(mockService.create).toHaveBeenCalledWith(tarjetaData);
+    });
   });
 });
