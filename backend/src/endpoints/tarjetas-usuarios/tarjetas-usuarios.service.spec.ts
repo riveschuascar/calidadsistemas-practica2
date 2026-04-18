@@ -57,4 +57,17 @@ describe('TarjetasUsuariosService', () => {
       expect(mockRepository.findOneBy).toHaveBeenCalledWith({ numero_tarjeta: mockTarjetaUsuario.numero_tarjeta });
     });
   });
+
+  
+  describe('getByUser', () => {
+    it('should return tarjetas for a usuario', async () => {
+      const expected = [{ ...mockTarjetaUsuario }];
+      mockRepository.findBy.mockResolvedValue(expected);
+
+      const result = await service.getByUser(mockTarjetaUsuario.usuario);
+
+      expect(result).toBe(expected);
+      expect(mockRepository.findBy).toHaveBeenCalledWith({ usuario: mockTarjetaUsuario.usuario });
+    });
+  });
 });
