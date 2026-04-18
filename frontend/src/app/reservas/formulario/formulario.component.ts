@@ -23,18 +23,22 @@ export class FormularioComponent implements OnInit {
     tarjeta: '',
   };
 
-  // Nueva propiedad para controlar la visibilidad del mensaje de solicitud
-  mostrarMensaje: boolean = false;
+  mostrarMensaje = false;
 
-constructor(private readonly espacioService: EspacioPublicoService, private readonly reservaService: ReservaService) {}
+  constructor(
+    private readonly espacioService: EspacioPublicoService,
+    private readonly reservaService: ReservaService
+  ) {}
 
   ngOnInit(): void {
     this.espacio = this.espacioService.getEspacioSeleccionado();
-    console.log(this.espacio.data);
 
     if (!this.espacio) {
       console.error('No hay espacio seleccionado.');
+      return;
     }
+
+    console.log(this.espacio.data);
   }
 
   ngSubmit() {
@@ -51,21 +55,18 @@ constructor(private readonly espacioService: EspacioPublicoService, private read
       hora_inicio: '8:00:00',
       hora_fin: '18:00:00'
     };
+
     console.log(reservaFinal);
 
     try {
-      // Aquí simularíamos que la reserva se realiza (si tienes una API, úsala)
       const response = await this.reservaService.postReserva(reservaFinal);
       console.log('Reserva realizada:', response);
-      
-      // Mostrar mensaje de solicitud enviada
+
       this.mostrarMensaje = true;
 
-      // Ocultar el mensaje después de 3 segundos
       setTimeout(() => {
         this.mostrarMensaje = false;
-      }, 3000); // 3000 milisegundos = 3 segundos
-
+      }, 3000);
     } catch (error: any) {
       console.log('No se pudo realizar la reserva');
       throw error;
