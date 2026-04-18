@@ -1,0 +1,58 @@
+import { Test, TestingModule } from '@nestjs/testing';
+import { TarjetasUsuariosController } from './tarjetas-usuarios.controller';
+import { TarjetasUsuariosService } from './tarjetas-usuarios.service';
+import { TarjetasUsuarios } from './tarjetas-usuarios.entity';
+
+describe('TarjetasUsuariosController', () => {
+  let controller: TarjetasUsuariosController;
+  let service: TarjetasUsuariosService;
+
+  const mockTarjetaUsuario: TarjetasUsuarios = {
+    usuario: 1,
+    numero_tarjeta: '1234567890123456',
+    cvc: '123',
+    saldo: 100,
+    caducidad: '2030-12-31',
+  } as TarjetasUsuarios;
+
+  const mockService = {
+    getByUser: jest.fn(),
+    getByNumber: jest.fn(),
+    create: jest.fn(),
+  };
+
+  beforeEach(async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      controllers: [TarjetasUsuariosController],
+      providers: [
+        {
+          provide: TarjetasUsuariosService,
+          useValue: mockService,
+        },
+      ],
+    }).compile();
+
+    controller = module.get<TarjetasUsuariosController>(TarjetasUsuariosController);
+    service = module.get<TarjetasUsuariosService>(TarjetasUsuariosService);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it('should be defined', () => {
+    expect(controller).toBeDefined();
+  });
+
+  describe('findByUser', () => {
+    it('should return tarjetas for a user', async () => {
+      const expected = [{ ...mockTarjetaUsuario }];
+      mockService.getByUser.mockResolvedValue(expected);
+
+      const result = await controller.findByUser(1);
+
+      expect(result).toBe(expected);
+      expect(mockService.getByUser).toHaveBeenCalledWith(1);
+    });
+  });
+});
