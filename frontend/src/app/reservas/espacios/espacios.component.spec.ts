@@ -2,6 +2,7 @@
 
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { convertToParamMap, ActivatedRoute } from '@angular/router';
+import { By } from '@angular/platform-browser';
 import { of } from 'rxjs';
 import { EspaciosComponent } from './espacios.component';
 import { EspacioPublicoService } from '../../services/espacios-publicos.service';
@@ -158,11 +159,11 @@ describe('EspaciosComponent', () => {
     expect(botones[1].getAttribute('ng-reflect-router-link')).toContain('/reservas/formulario,2');
   });
 
-  it('debería invocar selecEspacio al hacer clic en el botón reservar', () => {
+  it('debería invocar selecEspacio desde el evento click del botón reservar', () => {
     const spy = jest.spyOn(component, 'selecEspacio');
-    const boton = compiled.querySelector('.espacio button') as HTMLButtonElement;
+    const botones = fixture.debugElement.queryAll(By.css('.espacio button'));
 
-    boton.click();
+    botones[0].triggerEventHandler('click', null);
 
     expect(spy).toHaveBeenCalledWith(espaciosMock[0]);
   });
