@@ -1,5 +1,4 @@
 /// <reference types="jest" />
-
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RegistroDatosComponent } from './registro-datos.component';
 import { UsuariosService } from '../services/usuarios.service';
@@ -96,21 +95,24 @@ describe('RegistroDatosComponent', () => {
     expect(boton.type).toBe('submit');
   });
 
-  it('debería obtener el CI desde localStorage cuando se envía el formulario', async () => {
-    jest.spyOn(Storage.prototype, 'getItem').mockReturnValue('123456');
-    usuariosServiceMock.updateUsuarioDatos.mockResolvedValue({ ok: true });
+  it('debería manejar errores del servicio cuando el error no tiene propiedad message', async () => {
+  jest.spyOn(Storage.prototype, 'getItem').mockReturnValue('123456');
+  usuariosServiceMock.updateUsuarioDatos.mockRejectedValue('Error simple');
 
-    component.registroDatosData = {
-      nombre: 'Juan',
-      ap_paterno: 'Perez',
-      ap_materno: 'Gomez',
-      direccion: 'Av. Siempre Viva',
-      telefono: '77777777'
-    };
+  component.registroDatosData = {
+    nombre: 'Juan',
+    ap_paterno: 'Perez',
+    ap_materno: 'Gomez',
+    direccion: 'Av. Siempre Viva',
+    telefono: '77777777'
+  };
 
-    await component.onRegistroDatosSubmit();
+  await expect(component.onRegistroDatosSubmit()).resolves.toBeUndefined();
 
-    expect(localStorage.getItem).toHaveBeenCalledWith('ci_usuario');
+  expect(component.errorMessage).toBe(
+    'Ocurrió un error al actualizar los datos del usuario.'
+  );
+  expect(routerMock.navigate).not.toHaveBeenCalled();
   });
 
   it('debería asignar error si no existe ci_usuario en localStorage', async () => {
