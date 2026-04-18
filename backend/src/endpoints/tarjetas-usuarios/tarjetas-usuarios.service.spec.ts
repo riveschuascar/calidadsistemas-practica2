@@ -58,7 +58,6 @@ describe('TarjetasUsuariosService', () => {
     });
   });
 
-  
   describe('getByUser', () => {
     it('should return tarjetas for a usuario', async () => {
       const expected = [{ ...mockTarjetaUsuario }];
@@ -68,6 +67,32 @@ describe('TarjetasUsuariosService', () => {
 
       expect(result).toBe(expected);
       expect(mockRepository.findBy).toHaveBeenCalledWith({ usuario: mockTarjetaUsuario.usuario });
+    });
+  });
+  
+  describe('create', () => {
+    it('should hash cvc and save the tarjeta', async () => {
+      const tarjetaData: Partial<TarjetasUsuarios> = {
+        usuario: mockTarjetaUsuario.usuario,
+        numero_tarjeta: mockTarjetaUsuario.numero_tarjeta,
+        cvc: mockTarjetaUsuario.cvc,
+        saldo: mockTarjetaUsuario.saldo,
+        caducidad: mockTarjetaUsuario.caducidad,
+      };
+
+      mockRepository.save.mockImplementation(async (tarjeta) => tarjeta as TarjetasUsuarios);
+
+      const result = await service.create({ ...tarjetaData });
+
+      expect(result.usuario).toBe(tarjetaData.usuario);
+      expect(result.numero_tarjeta).toBe(tarjetaData.numero_tarjeta);
+      expect(result.caducidad).toBe(tarjetaData.caducidad);
+      expect(result.saldo).toBe(tarjetaData.saldo);
+      expect(result.cvc).toMatch(/^\$2b\$/);
+      expect(mockRepository.save).toHaveBeenCalledWith(expect.objectContaining({
+        ...tarjetaData,
+        cvc: expect.stringMatching(/^\$2b\$/),
+      }));
     });
   });
 });
