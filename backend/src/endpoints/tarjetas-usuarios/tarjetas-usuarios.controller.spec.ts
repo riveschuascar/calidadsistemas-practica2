@@ -55,4 +55,16 @@ describe('TarjetasUsuariosController', () => {
       expect(mockService.getByUser).toHaveBeenCalledWith(1);
     });
   });
+
+  describe('findByNumber', () => {
+    it('should return a tarjeta by number', async () => {
+      const expected = { ...mockTarjetaUsuario };
+      mockService.getByNumber.mockResolvedValue(expected);
+
+      const result = await controller.findByNumber('1234567890123456');
+
+      expect(result).toBe(expected);
+      expect(mockService.getByNumber).toHaveBeenCalledWith('1234567890123456');
+    });
+  });
 });
