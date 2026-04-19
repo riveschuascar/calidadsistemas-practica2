@@ -1,5 +1,5 @@
 <div class="formulario-container">
-    <h2>Formulario de Reserva: {{ espacio.nombre }}</h2>
+    <h2>Formulario de Reserva: {{ espacio?.nombre }}</h2>
     <form (ngSubmit)="reservar()">
       <label for="ci">CI</label>
       <input id="ci" type="text" required [(ngModel)]="reserva.ci" name="ci">
