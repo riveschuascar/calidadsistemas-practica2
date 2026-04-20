@@ -29,12 +29,11 @@ describe('AuthController', () => {
   });
 
   describe('login', () => {
-    it('should throw Error with "Credenciales inválidas" if user validation fails', async () => {
+    it('should throw Error with "Credenciales inválidas" if user found is null', async () => {
       const loginDto = { email: 'test@example.com', contrasena: 'password' };
 
-      (authService.validateUser as jest.Mock).mockRejectedValue(new Error('Credenciales inválidas'));
+      (authService.validateUser as jest.Mock).mockResolvedValue(null);
 
-      await expect(controller.login(loginDto)).rejects.toThrow(Error);
       await expect(controller.login(loginDto)).rejects.toThrow('Credenciales inválidas');
     });
 
