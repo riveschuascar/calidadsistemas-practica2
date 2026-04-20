@@ -21,10 +21,6 @@ export class TarjetasUsuariosController {
   @Post()
   create(@Body() tarjetaBody: Partial<TarjetasUsuarios>) {
     console.log(tarjetaBody);
-    try {
-        return this.tarjetaSercive.create(tarjetaBody);
-    } catch (error: any) {
-        throw error;
-    }
+    return this.tarjetaSercive.create(tarjetaBody);
   }
 }
